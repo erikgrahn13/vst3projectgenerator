@@ -375,6 +375,9 @@ Controller::Controller ()
 
 	// HERE add new values when needed (keep the previous order else the uidesc
 	// could not find its values!)
+	model->addValue (Value::make (valueIdAAXPlugin, 1));
+	model->addValue (Value::make (valueIdAUV3Plugin, 1));
+	model->addValue (Value::make (valueIdStandalone, 1));
 
 	// sub controllers
 	addCreateViewControllerFunc (
@@ -799,6 +802,7 @@ void Controller::createProject ()
 	auto pluginTypeStr = pluginTypeStrings[pluginTypeIndex];
 
 	auto pluginUseVSTGUI = model->getValue (valueIdUseVSTGUI)->getValue () != 0;
+	auto pluginUseAAX = model->getValue (valueIdAAXPlugin)->getValue () != 0;
 
 	if (_sdkPathStr.empty () || !validateVSTSDKPath (_sdkPathStr))
 	{
@@ -861,6 +865,15 @@ void Controller::createProject ()
 			args.add ("-DSMTG_ENABLE_VSTGUI_SUPPORT_CLI=ON");
 		else
 			args.add ("-DSMTG_ENABLE_VSTGUI_SUPPORT_CLI=OFF");
+
+		if(auto pluginUseAAX = model->getValue (valueIdAAXPlugin)->getValue () != 0)
+		{
+			args.add("-DSMTG_ENABLE_AAX_PLUGIN_CLI=ON");
+		}
+		else
+		{
+			args.add("-DSMTG_ENABLE_AAX_PLUGIN_CLI=OFF");
+		}
 
 		args.add ("-P");
 		args.addPath (scriptPath->getString ());
@@ -961,6 +974,17 @@ void Controller::runProjectCMake (const std::string& path)
 			args.add ("-DSMTG_ENABLE_VSTGUI_SUPPORT=ON");
 		else
 			args.add ("-DSMTG_ENABLE_VSTGUI_SUPPORT=OFF");
+
+		if(auto pluginUseAAX = model->getValue (valueIdAAXPlugin)->getValue () != 0)
+		{
+			args.add("-DSMTG_ENABLE_AAX_PLUGIN=ON");
+		}
+		else
+		{
+			args.add("-DSMTG_ENABLE_AAX_PLUGIN=OFF");
+		}
+
+
 
 		Value::performStringAppendValueEdit (*scriptOutputValue, "\n" + cmakePathStr + " ");
 		for (const auto& a : args.args)
@@ -1106,10 +1130,10 @@ VSTGUI::Optional<UTF8String> Controller::findCMakePath (const StringList& envPat
 }
 
 //------------------------------------------------------------------------
-const IMenuBuilder* Controller::getWindowMenuBuilder (const IWindow& window) const
-{
-	return this;
-}
+// const IMenuBuilder* Controller::getWindowMenuBuilder (const IWindow& window) const
+// {
+// 	return this;
+// }
 
 //------------------------------------------------------------------------
 } // ProjectCreator

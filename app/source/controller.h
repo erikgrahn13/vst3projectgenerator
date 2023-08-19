@@ -32,6 +32,9 @@ static constexpr auto valueIdPluginClassName = "PlugIn Class Name";
 static constexpr auto valueIdPluginBundleID = "PlugIn Bundle ID";
 static constexpr auto valueIdPluginFilenamePrefix = "PlugIn Filename Prefix";
 static constexpr auto valueIdUseVSTGUI = "Use VSTGUI";
+static constexpr auto valueIdAAXPlugin = "AAX Plugin";
+static constexpr auto valueIdAUV3Plugin = "AUV3 Plugin";
+static constexpr auto valueIdStandalone = "Standalone";
 static constexpr auto valueIdMacOSDeploymentTarget = "macOS Deployment Target";
 
 static constexpr auto valueIdChooseCMakePath = "Choose CMake Path";
@@ -54,8 +57,8 @@ static constexpr auto valueIdAppVersion = "App Version";
 
 //------------------------------------------------------------------------
 class Controller : public VSTGUI::Standalone::UIDesc::Customization,
-                   public VSTGUI::Standalone::WindowControllerAdapter,
-                   public VSTGUI::Standalone::NoMenuBuilder
+                   public VSTGUI::Standalone::WindowControllerAdapter
+                //    public VSTGUI::Standalone::NoMenuBuilder
 {
 public:
 	using ModelBindingPtr = VSTGUI::Standalone::UIDesc::ModelBindingPtr;
@@ -73,7 +76,7 @@ private:
 	void onShow (const IWindow& window) override;
 	void onSetContentView (IWindow& window,
 	                       const VSTGUI::SharedPointer<CFrame>& contentView) override;
-	const IMenuBuilder* getWindowMenuBuilder (const IWindow& window) const override;
+	// const IMenuBuilder* getWindowMenuBuilder (const IWindow& window) const override;
 
 	void storePreferences ();
 

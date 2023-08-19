@@ -30,7 +30,11 @@ file(GLOB_RECURSE
     ${SMTG_TEMPLATE_FILES_PATH}/*
 )
 
-foreach(rel_input_file ${template_files})
+if(NOT SMTG_ENABLE_AAX_PLUGIN)
+list(REMOVE_ITEM template_files "vst3plugin_folder/source/aax/vst3pluginaax.cpp.in")
+endif()
+
+foreach(rel_input_file ${template_files})  
     # Set the plug-in folder name which should be the plug-in's name
     string(REPLACE
         "vst3plugin_folder"
