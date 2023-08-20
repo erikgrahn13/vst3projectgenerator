@@ -804,6 +804,7 @@ void Controller::createProject ()
 	auto pluginUseVSTGUI = model->getValue (valueIdUseVSTGUI)->getValue () != 0;
 	auto pluginUseAAX = model->getValue (valueIdAAXPlugin)->getValue () != 0;
 	auto pluginUseAUV3 = model->getValue (valueIdAUV3Plugin)->getValue () != 0;
+	auto pluginUseStandalone = model->getValue (valueIdStandalone)->getValue () != 0;
 
 
 	if (_sdkPathStr.empty () || !validateVSTSDKPath (_sdkPathStr))
@@ -884,6 +885,15 @@ void Controller::createProject ()
 		else
 		{
 			args.add("-DSMTG_ENABLE_AUV3_PLUGIN_CLI=OFF");
+		}
+
+		if(auto pluginUseStandalone = model->getValue (valueIdStandalone)->getValue () != 0)
+		{
+			args.add("-DSMTG_ENABLE_STANDALONE_CLI=ON");
+		}
+		else
+		{
+			args.add("-DSMTG_ENABLE_STANDALONE_CLI=OFF");
 		}
 
 		args.add ("-P");
@@ -1002,6 +1012,15 @@ void Controller::runProjectCMake (const std::string& path)
 		else
 		{
 			args.add("-DSMTG_ENABLE_AUV3_PLUGIN=OFF");
+		}
+
+		if(auto pluginUseStandalone = model->getValue (valueIdStandalone)->getValue () != 0)
+		{
+			args.add("-DSMTG_ENABLE_STANDALONE=ON");
+		}
+		else
+		{
+			args.add("-DSMTG_ENABLE_STANDALONE=OFF");
 		}
 
 

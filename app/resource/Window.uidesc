@@ -2407,6 +2407,7 @@
 									"boxframe-color": "~ BlackCColor",
 									"checkmark-color": "~ BlackCColor",
 									"class": "CCheckBox",
+									"control-tag": "Standalone",
 									"default-value": "0",
 									"draw-crossbox": "true",
 									"font": "control",

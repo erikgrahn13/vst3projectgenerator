@@ -1,0 +1,9 @@
+vstgui_add_executable(@SMTG_CMAKE_PROJECT_NAME@-app "@SMTG_PREFIX_FOR_FILENAMES@app.cpp" )
+vstgui_add_resources(@SMTG_CMAKE_PROJECT_NAME@-app "${PROJECT_SOURCE_DIR}/resource/@SMTG_PREFIX_FOR_FILENAMES@editor.uidesc") # resource here
+vstgui_set_target_bundle_id(@SMTG_CMAKE_PROJECT_NAME@-app "@SMTG_PLUGIN_IDENTIFIER@.@SMTG_CMAKE_PROJECT_NAME@.standalone")
+vstgui_set_target_infoplist(@SMTG_CMAKE_PROJECT_NAME@-app "resource/Info.plist")
+vstgui_set_target_rcfile(@SMTG_CMAKE_PROJECT_NAME@-app "resource/@SMTG_PREFIX_FOR_FILENAMES@standalone.rc")
+vstgui_set_cxx_version(@SMTG_CMAKE_PROJECT_NAME@-app 17)
+target_include_directories(@SMTG_CMAKE_PROJECT_NAME@-app PRIVATE ${vst3sdk_SOURCE_DIR}/vstgui4)
+#set_target_properties(@SMTG_CMAKE_PROJECT_NAME@-app} PROPERTIES ${APP_PROPERTIES} ${VSTGUI_STANDALONE_EXAMPLES_FOLDER})
+

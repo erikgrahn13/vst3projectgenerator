@@ -52,6 +52,17 @@ foreach(file ${template_files})
 endforeach()
 endif(NOT SMTG_ENABLE_AUV3_PLUGIN)
 
+if(NOT SMTG_ENABLE_STANDALONE)
+set(exclude_standalone "vst3plugin_folder/source/standalone")
+
+foreach(file ${template_files})
+    get_filename_component(file_directory "${file}" DIRECTORY)
+    if("${file_directory}" MATCHES "${exclude_standalone}")
+        list(REMOVE_ITEM template_files ${file})
+    endif()
+endforeach()
+endif(NOT SMTG_ENABLE_STANDALONE)
+
 foreach(rel_input_file ${template_files})  
     # Set the plug-in folder name which should be the plug-in's name
     string(REPLACE

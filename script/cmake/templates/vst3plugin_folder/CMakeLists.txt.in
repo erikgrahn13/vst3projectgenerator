@@ -18,6 +18,7 @@ set(SMTG_VSTGUI_ROOT "${vst3sdk_SOURCE_DIR}")
 
 option(SMTG_ENABLE_AAX_PLUGIN "Enable AAX Plugin" @SMTG_ENABLE_AAX_PLUGIN_CLI@)
 option(SMTG_ENABLE_AUV3_PLUGIN "Enable AUV3 Plugin" @SMTG_ENABLE_AUV3_PLUGIN_CLI@)
+option(SMTG_ENABLE_STANDALONE "Enable Standalone" @SMTG_ENABLE_STANDALONE_CLI@)
 
 add_subdirectory(${vst3sdk_SOURCE_DIR} ${PROJECT_BINARY_DIR}/vst3sdk)
 smtg_enable_vst3_sdk()
@@ -96,3 +97,7 @@ endif(SMTG_ENABLE_AAX_PLUGIN)
 if(SMTG_ENABLE_AUV3_PLUGIN)
     add_subdirectory(source/auv3)
 endif(SMTG_ENABLE_AUV3_PLUGIN)
+
+if(SMTG_ENABLE_STANDALONE)
+    add_subdirectory(source/standalone)
+endif(SMTG_ENABLE_STANDALONE)
