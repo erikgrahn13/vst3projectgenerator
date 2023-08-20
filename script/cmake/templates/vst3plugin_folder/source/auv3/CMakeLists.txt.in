@@ -1,6 +1,8 @@
+list(APPEND CMAKE_MODULE_PATH "${vst3sdk_SOURCE_DIR}/cmake/modules")
+
 include(SMTG_AddVST3AuV3)
 
-if(SMTG_MAC AND SMTG_ADD_VSTGUI)
+if(SMTG_MAC AND SMTG_ENABLE_VSTGUI_SUPPORT)
     if(XCODE)
         set(@SMTG_CMAKE_PROJECT_NAME@_mac_app_sources
             "macOS/Sources/ViewController.m"
@@ -21,7 +23,7 @@ if(SMTG_MAC AND SMTG_ADD_VSTGUI)
 
         set(@SMTG_CMAKE_PROJECT_NAME@_mac_app_ui_resources
             "macOS/Resources/Base.lproj/Main.storyboard"
-            "macOS/Resources/@SMTG_CMAKE_PROJECT_NAME@.icns"
+            "macOS/Resources/@SMTG_PREFIX_FOR_FILENAMES@.icns"
             "Shared/drumLoop.wav"
         )
 
@@ -35,7 +37,7 @@ if(SMTG_MAC AND SMTG_ADD_VSTGUI)
         #--------------------------------------------------------------------------------------------------------
         # macOS target
         #--------------------------------------------------------------------------------------------------------
-        smtg_add_auv3_app(@SMTG_CMAKE_PROJECT_NAME@_auv3_macos "macOS" "@SMTG_CMAKE_PROJECT_NAME@ AUV3 macOS" "@SMTG_PLUGIN_IDENTIFIER@.@SMTG_CMAKE_PROJECT_NAME@mac" audiounitconfig.h "macOS/@SMTG_CMAKE_PROJECT_NAME@.entitlements" "${@SMTG_CMAKE_PROJECT_NAME@_mac_app_sources}" "${@SMTG_CMAKE_PROJECT_NAME@_mac_app_ui_resources}" "macOS/Resources/Info.plist" "Shared/Info.plist" @SMTG_CMAKE_PROJECT_NAME@)
+        smtg_add_auv3_app(@SMTG_CMAKE_PROJECT_NAME@_auv3_macos "macOS" "@SMTG_CMAKE_PROJECT_NAME@ AUV3 macOS" "@SMTG_PLUGIN_IDENTIFIER@.@SMTG_CMAKE_PROJECT_NAME@mac" audiounitconfig.h "macOS/@SMTG_CMAKE_PROJECT_NAME@.entitlements" "${@SMTG_CMAKE_PROJECT_NAME@_mac_app_sources}" "${@SMTG_CMAKE_PROJECT_NAME@_mac_app_ui_resources}" "macOS/Resources/Info.plist" "Shared/Info.plist" @SMTG_CMAKE_PROJECT_NAME@-vst3)
 
         #--------------------------------------------------------------------------------------------------------
         # iOS target
@@ -43,5 +45,7 @@ if(SMTG_MAC AND SMTG_ADD_VSTGUI)
         if(SMTG_IOS_DEVELOPMENT_TEAM)
             smtg_add_auv3_app(a@SMTG_CMAKE_PROJECT_NAME@_auv3_ios "iOS" "@SMTG_CMAKE_PROJECT_NAME@ AUV3 iOS" "@SMTG_PLUGIN_IDENTIFIER@.@SMTG_CMAKE_PROJECT_NAME@ios" "audiounitconfig.h" "iOS/@SMTG_CMAKE_PROJECT_NAME@.entitlements" "${@SMTG_CMAKE_PROJECT_NAME@_ios_app_sources}" "${@SMTG_CMAKE_PROJECT_NAME@_ios_app_ui_resources}" "iOS/Resources/Info.plist" "Shared/Info.plist" @SMTG_CMAKE_PROJECT_NAME@_ios)
         endif(SMTG_IOS_DEVELOPMENT_TEAM)
+
+        target_include_directories(@SMTG_CMAKE_PROJECT_NAME@_auv3_macos PRIVATE ${vst3sdk_SOURCE_DIR})
     endif(XCODE)
 endif(SMTG_MAC AND SMTG_ADD_VSTGUI)
