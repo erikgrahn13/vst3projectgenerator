@@ -1,0 +1,46 @@
+if(NOT SMTG_AAX_SDK_PATH OR NOT SMTG_ENABLE_VSTGUI_SUPPORT)
+    return()
+endif()
+
+list(APPEND CMAKE_MODULE_PATH "${vst3sdk_SOURCE_DIR}/cmake/modules")
+include(SMTG_AddAAXLibrary)
+
+smtg_add_aaxplugin(@SMTG_CMAKE_PROJECT_NAME@-aax
+    PACKAGE_NAME @SMTG_CMAKE_PROJECT_NAME@
+    SOURCES_LIST
+    @SMTG_PREFIX_FOR_FILENAMES@aax.cpp
+    ${PROJECT_SOURCE_DIR}/source/version.h
+    ${PROJECT_SOURCE_DIR}/source/@SMTG_PREFIX_FOR_FILENAMES@cids.h
+    ${PROJECT_SOURCE_DIR}/source/@SMTG_PREFIX_FOR_FILENAMES@processor.h
+    ${PROJECT_SOURCE_DIR}/source/@SMTG_PREFIX_FOR_FILENAMES@processor.cpp
+    ${PROJECT_SOURCE_DIR}/source/@SMTG_PREFIX_FOR_FILENAMES@controller.h
+    ${PROJECT_SOURCE_DIR}/source/@SMTG_PREFIX_FOR_FILENAMES@controller.cpp
+    ${PROJECT_SOURCE_DIR}/source/@SMTG_PREFIX_FOR_FILENAMES@entry.cpp
+)
+
+smtg_target_configure_version_file(@SMTG_CMAKE_PROJECT_NAME@-aax)
+
+target_link_libraries(@SMTG_CMAKE_PROJECT_NAME@-aax
+    PRIVATE
+    sdk
+    vstgui_support
+    aaxwrapper
+)
+
+target_include_directories(@SMTG_CMAKE_PROJECT_NAME@-aax
+    PUBLIC
+    ${PROJECT_SOURCE_DIR}/source
+)
+
+smtg_target_add_plugin_snapshots(@SMTG_CMAKE_PROJECT_NAME@-aax
+    RESOURCES
+    ${PROJECT_SOURCE_DIR}/resource/@SMTG_Processor_PLAIN_UUID@_snapshot.png
+    ${PROJECT_SOURCE_DIR}/resource/@SMTG_Processor_PLAIN_UUID@_snapshot_2.0x.png
+)
+
+smtg_target_add_plugin_resources(@SMTG_CMAKE_PROJECT_NAME@-aax
+    RESOURCES
+    "${PROJECT_SOURCE_DIR}/resource/@SMTG_PREFIX_FOR_FILENAMES@editor.uidesc"
+)
+
+set_target_properties(@SMTG_CMAKE_PROJECT_NAME@-aax PROPERTIES OUTPUT_NAME "@SMTG_CMAKE_PROJECT_NAME@")
