@@ -1,0 +1,11 @@
+//------------------------------------------------------------------------
+// @SMTG_SOURCE_COPYRIGHT_HEADER@
+//------------------------------------------------------------------------
+
+#import <Cocoa/Cocoa.h>
+
+@interface ViewController : NSViewController <NSWindowDelegate>
+
+@end
+
+

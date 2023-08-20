@@ -1,0 +1,20 @@
+//------------------------------------------------------------------------
+// @SMTG_SOURCE_COPYRIGHT_HEADER@
+//------------------------------------------------------------------------
+
+#import "AppDelegate.h"
+
+@implementation AppDelegate
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+}
+
+- (void)applicationWillTerminate:(NSNotification *)aNotification {
+}
+
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
+	return YES;
+}
+
+@end

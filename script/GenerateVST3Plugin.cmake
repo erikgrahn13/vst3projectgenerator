@@ -31,8 +31,26 @@ file(GLOB_RECURSE
 )
 
 if(NOT SMTG_ENABLE_AAX_PLUGIN)
-list(REMOVE_ITEM template_files "vst3plugin_folder/source/aax/vst3pluginaax.cpp.in")
-endif()
+set(exclude_aax "vst3plugin_folder/source/aax")
+
+foreach(file ${template_files})
+    get_filename_component(file_directory "${file}" DIRECTORY)
+    if("${file_directory}" MATCHES "${exclude_aax}")
+        list(REMOVE_ITEM template_files ${file})
+    endif()
+endforeach()
+endif(NOT SMTG_ENABLE_AAX_PLUGIN)
+
+if(NOT SMTG_ENABLE_AUV3_PLUGIN)
+set(exclude_auv3 "vst3plugin_folder/source/auv3")
+
+foreach(file ${template_files})
+    get_filename_component(file_directory "${file}" DIRECTORY)
+    if("${file_directory}" MATCHES "${exclude_auv3}")
+        list(REMOVE_ITEM template_files ${file})
+    endif()
+endforeach()
+endif(NOT SMTG_ENABLE_AUV3_PLUGIN)
 
 foreach(rel_input_file ${template_files})  
     # Set the plug-in folder name which should be the plug-in's name
