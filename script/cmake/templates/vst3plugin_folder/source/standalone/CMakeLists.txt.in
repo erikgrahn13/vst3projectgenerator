@@ -1,3 +1,7 @@
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
+    $<$<CONFIG:Debug>:${CMAKE_BINARY_DIR}/APP/Debug/>$<$<CONFIG:Release>:${CMAKE_BINARY_DIR}/APP/Release/>$<$<CONFIG:ReleaseLTO>:${CMAKE_BINARY_DIR}/APP/ReleaseLTO/>
+)
+
 vstgui_add_executable(@SMTG_CMAKE_PROJECT_NAME@-app "@SMTG_PREFIX_FOR_FILENAMES@app.cpp" )
 vstgui_add_resources(@SMTG_CMAKE_PROJECT_NAME@-app "${PROJECT_SOURCE_DIR}/resource/@SMTG_PREFIX_FOR_FILENAMES@editor.uidesc") # resource here
 vstgui_set_target_bundle_id(@SMTG_CMAKE_PROJECT_NAME@-app "@SMTG_PLUGIN_IDENTIFIER@.@SMTG_CMAKE_PROJECT_NAME@.standalone")
