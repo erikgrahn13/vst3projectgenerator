@@ -43,4 +43,8 @@ smtg_target_add_plugin_resources(@SMTG_CMAKE_PROJECT_NAME@-aax
     "${PROJECT_SOURCE_DIR}/resource/@SMTG_PREFIX_FOR_FILENAMES@editor.uidesc"
 )
 
+if(NOT EXISTS ${SMTG_PACKAGE_ICON_PATH})
+    set(SMTG_PACKAGE_ICON_PATH ${vst3sdk_SOURCE_DIR}/public.sdk/source/vst/aaxwrapper/resource/PlugIn.ico)
+endif()
+
 set_target_properties(@SMTG_CMAKE_PROJECT_NAME@-aax PROPERTIES OUTPUT_NAME "@SMTG_CMAKE_PROJECT_NAME@")
