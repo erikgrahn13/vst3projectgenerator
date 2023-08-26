@@ -101,3 +101,32 @@ endif(SMTG_ENABLE_AUV3_PLUGIN)
 if(SMTG_ENABLE_STANDALONE)
     add_subdirectory(source/standalone)
 endif(SMTG_ENABLE_STANDALONE)
+
+if(WIN32)
+    find_program(INNO NAMES "C:/Program Files (x86)/Inno Setup 6/Compil32.exe"
+        HINTS "C:/Program Files (x86)/Inno Setup 6" "C:/Program Files/Inno Setup 6")
+
+    if(INNO)
+        install(DIRECTORY "${CMAKE_BINARY_DIR}/VST3/Debug/@SMTG_CMAKE_PROJECT_NAME@.vst3" DESTINATION . COMPONENT @SMTG_CMAKE_PROJECT_NAME@VST3) # Dot sets directly in target folder.
+        install(DIRECTORY "${CMAKE_BINARY_DIR}/AAXPLUGIN/Debug/@SMTG_CMAKE_PROJECT_NAME@.aaxplugin" DESTINATION . COMPONENT @SMTG_CMAKE_PROJECT_NAME@AAXPLUGIN) # Dot sets directly in target folder.
+        install(DIRECTORY "${CMAKE_BINARY_DIR}/APP/Debug/@SMTG_CMAKE_PROJECT_NAME@-app" DESTINATION . COMPONENT @SMTG_CMAKE_PROJECT_NAME@APP) # Dot sets directly in target folder.
+
+        # Start Menu Shortcuts: executable without .exe and text label
+        set(CPACK_PACKAGE_EXECUTABLES "@SMTG_CMAKE_PROJECT_NAME@" "@SMTG_CMAKE_PROJECT_NAME@")
+        set(CPACK_CREATE_DESKTOP_LINKS "@SMTG_CMAKE_PROJECT_NAME@") # Desktop link
+
+        # Inno Setup is supported from CMake 3.27.
+        set(CPACK_GENERATOR INNOSETUP)
+
+        # This must always be after all CPACK\_\* variables are defined
+        set(CPACK_INNOSETUP_EXTRA_SCRIPTS ${CMAKE_CURRENT_LIST_DIR}/resource/@SMTG_CMAKE_PROJECT_NAME@.iss)
+        set(CPACK_INNOSETUP_USE_MODERN_WIZARD ON)
+        include(CPack)
+    else()
+        message(WARNING "Inno Setup not found. Download it from http://www.jrsoftware.org/download.php/is.exe if you want to create installer of your plugin")
+    endif(INNO)
+elseif(CMAKE_HOST_APPLE)
+# TODO
+elseif(LINUX)
+    # TODO
+endif(WIN32)
