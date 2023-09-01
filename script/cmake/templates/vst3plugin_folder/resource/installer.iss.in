@@ -1,4 +1,4 @@
 [Dirs]
-Name: "{app}\@SMTG_CMAKE_PROJECT_NAME@.aaxplugin\"; Attribs: readonly; Components: @SMTG_CMAKE_PROJECT_NAME@AAXPLUGIN
-Name: "{app}\@SMTG_CMAKE_PROJECT_NAME@-app\"; Attribs: readonly; Components: @SMTG_CMAKE_PROJECT_NAME@APP
-Name: "{app}\@SMTG_CMAKE_PROJECT_NAME@.vst3\"; Attribs: readonly; Components: @SMTG_CMAKE_PROJECT_NAME@VST3
+Name: "{app}\@SMTG_CMAKE_PROJECT_NAME@.aaxplugin\"; Attribs: readonly; Components:@SMTG_CMAKE_PROJECT_NAME@AAXPLUGIN;
+Name: "{app}\@SMTG_CMAKE_PROJECT_NAME@-app\"; Attribs: readonly; Components:@SMTG_CMAKE_PROJECT_NAME@APP;
+Name: "{app}\@SMTG_CMAKE_PROJECT_NAME@.vst3\"; Attribs: readonly; Components:@SMTG_CMAKE_PROJECT_NAME@VST3;

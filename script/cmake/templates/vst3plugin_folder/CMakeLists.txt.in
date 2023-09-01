@@ -119,7 +119,7 @@ if(WIN32)
         set(CPACK_GENERATOR INNOSETUP)
 
         # This must always be after all CPACK\_\* variables are defined
-        set(CPACK_INNOSETUP_EXTRA_SCRIPTS ${CMAKE_CURRENT_LIST_DIR}/resource/@SMTG_CMAKE_PROJECT_NAME@.iss)
+        set(CPACK_INNOSETUP_EXTRA_SCRIPTS ${CMAKE_CURRENT_LIST_DIR}/resource/installer.iss)
         set(CPACK_INNOSETUP_USE_MODERN_WIZARD ON)
         include(CPack)
     else()

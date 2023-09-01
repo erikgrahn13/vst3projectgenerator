@@ -2,6 +2,10 @@ if(NOT SMTG_AAX_SDK_PATH OR NOT SMTG_ENABLE_VSTGUI_SUPPORT)
     return()
 endif()
 
+if(NOT EXISTS ${SMTG_PACKAGE_ICON_PATH})
+    set(SMTG_PACKAGE_ICON_PATH ${vst3sdk_SOURCE_DIR}/public.sdk/source/vst/aaxwrapper/resource/PlugIn.ico)
+endif()
+
 list(APPEND CMAKE_MODULE_PATH "${vst3sdk_SOURCE_DIR}/cmake/modules")
 include(SMTG_AddAAXLibrary)
 
@@ -42,9 +46,5 @@ smtg_target_add_plugin_resources(@SMTG_CMAKE_PROJECT_NAME@-aax
     RESOURCES
     "${PROJECT_SOURCE_DIR}/resource/@SMTG_PREFIX_FOR_FILENAMES@editor.uidesc"
 )
-
-if(NOT EXISTS ${SMTG_PACKAGE_ICON_PATH})
-    set(SMTG_PACKAGE_ICON_PATH ${vst3sdk_SOURCE_DIR}/public.sdk/source/vst/aaxwrapper/resource/PlugIn.ico)
-endif()
 
 set_target_properties(@SMTG_CMAKE_PROJECT_NAME@-aax PROPERTIES OUTPUT_NAME "@SMTG_CMAKE_PROJECT_NAME@")
